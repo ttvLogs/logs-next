@@ -20,7 +20,7 @@ const Home: NextPage = () => {
             </a>
           </h1>
           <h2 className="font-medium">
-            Nextjs, TailwindCSS JIT, Prisma
+            Nextjs, Tailwind CSS JIT, Prisma
           </h2>
         </div>
       </main>
