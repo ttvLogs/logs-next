@@ -1,7 +1,21 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import { Fragment } from "react";
+import { ThemeProvider } from "next-themes";
+import type { AppProps } from "next/app";
+import type { Page } from "../types/page";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+type Props = AppProps & {
+  Component: Page;
+};
+
+function MyApp({ Component, pageProps }: Props) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+  const Layout = Component.layout ?? Fragment;
+
+  return (
+    <ThemeProvider attribute="class">
+      <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+    </ThemeProvider>
+  );
 }
-export default MyApp
+export default MyApp;
