@@ -6,9 +6,8 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
-      transitionDuration: {
-        300: "300ms",
-        500: "500ms",
+      outline: {
+        primary: `2px dashed ${colors.purple[500]}`,
       },
       colors: {
         darkGrey: "var(--color-dark-light)",
