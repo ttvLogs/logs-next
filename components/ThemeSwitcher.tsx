@@ -7,6 +7,10 @@ import { MoonIcon, SunIcon } from "@heroicons/react/outline";
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
 
+  useEffect(() => {
+    setChecked(localStorage.getItem("theme") === "dark" ? false : true);
+  }, []);
+
   const [checked, setChecked] = useState(false);
   const [mounted, setMounted] = useState(false);
 
