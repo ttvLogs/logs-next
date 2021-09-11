@@ -19,7 +19,7 @@ export function Navigation() {
     return location.pathname === name ? true : false;
   };
   return (
-    <header className="sticky top-0 z-50">
+    <header className="sticky top-0 z-20">
       <Disclosure as="div" className="dark:bg-darkGrey bg-white shadow">
         {({ open }) => (
           <>

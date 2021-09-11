@@ -19,7 +19,7 @@ export function SlideOver ({ children }: defProps) {
       <Dialog
         as="div"
         static
-        className="fixed inset-0 overflow-hidden"
+        className="fixed inset-0 overflow-hidden z-50"
         open={open}
         onClose={setOpen}
       >
@@ -47,7 +47,7 @@ export function SlideOver ({ children }: defProps) {
               leaveTo="translate-x-full"
             >
               <div className="w-screen max-w-md">
-                <div className="h-full flex flex-col py-6 bg-white dark:bg-darkLight shadow-xl overflow-y-auto">
+                <div className="h-full flex flex-col py-6 bg-white dark:bg-darkGrey dark:bg-darkLight shadow-xl overflow-y-auto">
                   <div className="px-4 sm:px-6">
                     <div className="flex items-start justify-between">
                       <Dialog.Title className="text-lg font-medium">
@@ -55,7 +55,8 @@ export function SlideOver ({ children }: defProps) {
                       </Dialog.Title>
                       <div className="ml-3 h-7 flex items-center">
                         <button
-                          className="dark:bg-darklight rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary"
+                          className="rounded-md text-gray-400 dark:text-gray-200 dark:hover:text-gray-400
+                           hover:text-gray-500 focus:outline-primary transition duration-200"
                           onClick={() => setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>
