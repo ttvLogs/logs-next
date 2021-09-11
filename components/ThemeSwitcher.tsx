@@ -27,13 +27,11 @@ export function ThemeSwitcher() {
       checked={checked}
       onChange={handleChange}
       className={classNames(
-        checked
-          ? "bg-gray-200 focus:ring-yellow-500"
-          : "bg-gray-200 focus:ring-gray-200",
-        "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ",
+        "bg-gray-200",
+        "relative inline-flex focus:outline-primary flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer hover:bg-gray-300 transition duration-200",
       )}
     >
-      <span className="sr-only">Use setting</span>
+      <span className="sr-only">Theme switcher</span>
       <span
         className={classNames(
           checked ? "translate-x-5" : "translate-x-0",
