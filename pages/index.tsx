@@ -1,18 +1,19 @@
 import Head from "next/head";
-import { useCallback, useMemo, useState } from "react";
-import MainLayout from "../layouts/Layout";
+import { GetServerSideProps } from "next";
+import { useCallback, useMemo, useState, useEffect } from "react";
+import prisma from "../prisma/prisma";
+import { classNames } from "../utils";
 import type { ReactElement } from "react";
+import MainLayout from "../layouts/Layout";
 import DownshiftComponent from "../components/Downshift";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
-import { classNames } from "../utils";
 
-export default function Home() {
+export default function Home({ channels: props }) {
+  console.log(props); //undefined
   const [channelWarning, setChannelWarning] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const items = useMemo(
-    () => ["apple", "pear", "orange", "grape", "banana"],
-    [],
-  );
+  const [loading, setLoading] = useState(false);
+  const [items, setItems] = useState(["one", "two", "three"]);
 
   const handleSelectedItemChange = useCallback(
     (selectedItem) => {
@@ -48,7 +49,7 @@ export default function Home() {
               <span className="sr-only">Channel not found in the database</span>
             </ExclamationCircleIcon>
           </div>
-          123
+          <p>{typeof props}</p> {/* undefined */}
         </section>
       </div>
     </div>
@@ -56,3 +57,18 @@ export default function Home() {
 }
 
 Home.getLayout = (page: ReactElement) => <MainLayout>{page}</MainLayout>;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return { props: { message: "return something" } };
+  // return await prisma.channels
+  //   .findMany({
+  //     where: { Availiable: 1 },
+  //     select: { ChannelID: true },
+  //   })
+  //   .then((response) => {
+  //     return { props: response };
+  //   })
+  //   .catch(() => {
+  //     return { props: null };
+  //   });
+};
