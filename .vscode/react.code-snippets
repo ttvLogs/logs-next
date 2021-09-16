@@ -1,0 +1,16 @@
+{
+  "Twitch logs - React Component": {
+    "prefix": "re:fc",
+    "body": [
+      "import { FC } from 'react';",
+      "import { classNames } from '../../utils';",
+      "",
+      "const $1: FC<{ className?: string }> = ({ className, children }) => {",
+      "return <div>{children}</div>;",
+      "};",
+      "",
+      "export default $1;"
+    ],
+    "description": "Add a React Component"
+  }
+}
