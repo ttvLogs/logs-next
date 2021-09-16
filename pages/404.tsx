@@ -31,23 +31,26 @@ export default function Custom404() {
                 Yes, this is a 404 error. How could you tell?
               </p>
               <div className="mt-6">
-                <a
-                  href="#"
-                  className="text-base font-medium text-primary hover:text-primaryLight transition duration-200"
-                >
-                  Go back home
-                </a>
+                <Link href="/" passHref>
+                  <span className="text-base font-medium text-primary hover:text-primaryLight transition duration-200 cursor-pointer">
+                    Go back home
+                  </span>
+                </Link>
               </div>
             </div>
           </div>
         </main>
         <footer className="flex-shrink-0 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex justify-center space-x-4">
-            <Link href="#" passHref>
+            <a
+              href="https://github.com/ttvLogs/logs-next/issues"
+              target="_blank"
+              rel="noreferrer"
+            >
               <span className="text-sm font-medium text-gray-500 hover:text-gray-600">
                 Issues
               </span>
-            </Link>
+            </a>
           </nav>
         </footer>
       </div>

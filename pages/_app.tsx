@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: Props) {
   const Layout = Component.layout ?? Fragment;
 
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider attribute="class" defaultTheme="dark">
       <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
     </ThemeProvider>
   );
