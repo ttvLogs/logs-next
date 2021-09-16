@@ -8,12 +8,20 @@ import MainLayout from "../layouts/Layout";
 import DownshiftComponent from "../components/Downshift";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
 
-export default function Home({ channels: props }) {
-  console.log(props); //undefined
+export default function Home({ ...props }) {
   const [channelWarning, setChannelWarning] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState(["one", "two", "three"]);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    if (props.response !== null) {
+      props.response.map((item: ChannelsResponse) => {
+        if (!items.includes(item.ChannelID)) {
+          setItems((items) => [...items, item.ChannelID]);
+        }
+      });
+    }
+  }, [props.response, items]);
 
   const handleSelectedItemChange = useCallback(
     (selectedItem) => {
@@ -49,7 +57,6 @@ export default function Home({ channels: props }) {
               <span className="sr-only">Channel not found in the database</span>
             </ExclamationCircleIcon>
           </div>
-          <p>{typeof props}</p> {/* undefined */}
         </section>
       </div>
     </div>
@@ -58,17 +65,16 @@ export default function Home({ channels: props }) {
 
 Home.getLayout = (page: ReactElement) => <MainLayout>{page}</MainLayout>;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  return { props: { message: "return something" } };
-  // return await prisma.channels
-  //   .findMany({
-  //     where: { Availiable: 1 },
-  //     select: { ChannelID: true },
-  //   })
-  //   .then((response) => {
-  //     return { props: response };
-  //   })
-  //   .catch(() => {
-  //     return { props: null };
-  //   });
+export const getServerSideProps: GetServerSideProps = async () => {
+  return await prisma.channels
+    .findMany({
+      where: { Availiable: 1 },
+      select: { ChannelID: true },
+    })
+    .then((response) => {
+      return { props: { response: response } };
+    })
+    .catch(() => {
+      return { props: { response: null } };
+    });
 };
