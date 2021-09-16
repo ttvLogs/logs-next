@@ -7,22 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ttvUser_126153582 {
-  ID        Int       @id @default(autoincrement())
-  SenderID  String?   @db.VarChar(10)
-  Name      String    @default("No name provided") @db.VarChar(30)
-  Message   String?   @default("No message provided") @db.Text
-  Emotes    String?   @db.Text
-  Color     String?   @db.VarChar(7)
-  Badges    String?   @db.Text
-  Timestamp DateTime? @default(now()) @db.Timestamp(0)
-}
-
 model ttvUser_172197890 {
   ID        Int       @id @default(autoincrement())
   SenderID  String?   @db.VarChar(10)
   Name      String    @default("No name provided") @db.VarChar(30)
-  Message   String?   @default("No message provided") @db.Text
+  Message   String?   @db.Text
   Emotes    String?   @db.Text
   Color     String?   @db.VarChar(7)
   Badges    String?   @db.Text
@@ -34,4 +23,15 @@ model Channels {
   Name       String    @db.VarChar(30)
   Timestamp  DateTime? @default(now()) @db.Timestamp(0)
   Availiable Int       @default(1) @db.TinyInt
+}
+
+model ttvUser_116738112 {
+  ID        Int       @id @default(autoincrement())
+  SenderID  String?   @db.VarChar(10)
+  Name      String    @default("No name provided") @db.VarChar(30)
+  Message   String?   @db.Text
+  Emotes    String?   @db.Text
+  Color     String?   @db.VarChar(7)
+  Badges    String?   @db.Text
+  Timestamp DateTime? @default(now()) @db.Timestamp(0)
 }
