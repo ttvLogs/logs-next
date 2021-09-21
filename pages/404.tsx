@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 import MainLayout from "../layouts/Layout";
-import ppSpin from "../assets/images/ppHop.gif";
+import ppHop from "../assets/images/ppHop.gif";
 import type { ReactElement } from "react";
 
 export default function Custom404() {
@@ -17,7 +17,7 @@ export default function Custom404() {
       <div className="pt-16 pb-12 flex flex-col h-[90vh]">
         <main className="flex-grow flex flex-col justify-center max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex-shrink-0 inline-flex justify-center">
-            <Image className="h-12 w-auto" src={ppSpin} alt="" />
+            <Image className="h-12 w-auto" src={ppHop} alt="" />
           </div>
           <div className="py-8">
             <div className="text-center">

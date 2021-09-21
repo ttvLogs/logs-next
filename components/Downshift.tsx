@@ -102,10 +102,17 @@ const DownshiftComponent: FC<{
           leaveTo="opacity-0"
         >
           <ul
-            className="absolute z-10 w-full mt-1 bg-white shadow-lg
-         max-h-56 rounded-md text-base ring-1 ring-black dark:ring-gray-100/10 ring-opacity-5 
-         overflow-auto focus:outline-none sm:text-sm dark:bg-darkGrey"
-            {...getMenuProps({}, { suppressRefError: true })}
+            className={classNames(
+              isOpen
+                ? `absolute z-10 w-full mt-1 bg-white shadow-lg
+            max-h-56 rounded-md text-base ring-1 ring-black dark:ring-gray-100/10 ring-opacity-5 
+            overflow-auto focus:outline-none sm:text-sm dark:bg-darkGrey`
+                : "",
+            )}
+            {...getMenuProps(
+              { "aria-controls": "downshift-0-menu" },
+              { suppressRefError: true },
+            )}
           >
             {isOpen &&
               inputItems.map((item, index) => (

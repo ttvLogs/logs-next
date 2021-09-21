@@ -19,7 +19,7 @@ export function Navigation() {
     return location.pathname === name ? true : false;
   };
   return (
-    <header className="sticky top-0 z-20">
+    <header className="sticky top-0 z-30">
       <Disclosure as="div" className="dark:bg-darkGrey bg-white shadow">
         {({ open }) => (
           <>
@@ -94,9 +94,9 @@ export function Navigation() {
                 </div>
               </div>
             </div>
-            <Disclosure.Panel className="sm:hidden absolute w-full bg-darkGrey">
+            <Disclosure.Panel className="sm:hidden absolute w-full bd:white dark:bg-darkGrey border-b border-gray-300 dark:border-black">
               <div className="pt-2 pb-4 space-y-1">
-                <div className="border-t border-darkBlack">
+                <div className="border-t dark:border-darkBlack">
                   <Link href="/" passHref>
                     <div
                       className={classNames(
