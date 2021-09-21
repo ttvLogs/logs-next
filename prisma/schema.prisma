@@ -35,3 +35,47 @@ model ttvUser_116738112 {
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
 }
+
+model ttvUser_12943173 {
+  ID        Int       @id @default(autoincrement())
+  SenderID  String?   @db.VarChar(10)
+  Name      String    @default("No name provided") @db.VarChar(30)
+  Message   String?   @db.Text
+  Emotes    String?   @db.Text
+  Color     String?   @db.VarChar(7)
+  Badges    String?   @db.Text
+  Timestamp DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model ttvUser_62300805 {
+  ID        Int       @id @default(autoincrement())
+  SenderID  String?   @db.VarChar(10)
+  Name      String    @default("No name provided") @db.VarChar(30)
+  Message   String?   @db.Text
+  Emotes    String?   @db.Text
+  Color     String?   @db.VarChar(7)
+  Badges    String?   @db.Text
+  Timestamp DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model ttvUser_72256775 {
+  ID        Int       @id @default(autoincrement())
+  SenderID  String?   @db.VarChar(10)
+  Name      String    @default("No name provided") @db.VarChar(30)
+  Message   String?   @db.Text
+  Emotes    String?   @db.Text
+  Color     String?   @db.VarChar(7)
+  Badges    String?   @db.Text
+  Timestamp DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model ttvUser_95304188 {
+  ID        Int       @id @default(autoincrement())
+  SenderID  String?   @db.VarChar(10)
+  Name      String    @default("No name provided") @db.VarChar(30)
+  Message   String?   @db.Text
+  Emotes    String?   @db.Text
+  Color     String?   @db.VarChar(7)
+  Badges    String?   @db.Text
+  Timestamp DateTime? @default(now()) @db.Timestamp(0)
+}
