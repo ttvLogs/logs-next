@@ -80,9 +80,19 @@ const DownshiftComponent: FC<{
         >
           Choose a channel:
         </label>
-        <div {...getComboboxProps()} className="mt-1 relative">
+        <div
+          {...getComboboxProps({
+            "aria-controls": "downshift-0-menu",
+            "aria-labelledby": "downshift-0-menu",
+            "aria-owns": "downshift-0-menu",
+          })}
+          className="mt-1 relative"
+        >
           <input
             {...getInputProps({
+              "aria-controls": "downshift-0-menu",
+              "aria-labelledby": "downshift-0-menu",
+              "aria-owns": "downshift-0-menu",
               placeholder: "forsen",
               id: "channelSelect",
             })}
@@ -109,10 +119,7 @@ const DownshiftComponent: FC<{
             overflow-auto focus:outline-none sm:text-sm dark:bg-darkGrey`
                 : "",
             )}
-            {...getMenuProps(
-              { "aria-controls": "downshift-0-menu" },
-              { suppressRefError: true },
-            )}
+            {...getMenuProps({}, { suppressRefError: true })}
           >
             {isOpen &&
               inputItems.map((item, index) => (
