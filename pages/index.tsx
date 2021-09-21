@@ -1,6 +1,7 @@
+import useSWR from "swr";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, FormEvent } from "react";
 import prisma from "../prisma/prisma";
 import { classNames } from "../utils";
 import { Loading, Alert } from "../components";
@@ -12,26 +13,30 @@ import { ExclamationCircleIcon } from "@heroicons/react/outline";
 export default function Home({ ...props }) {
   const [channelWarning, setChannelWarning] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [error, setError] = useState(false);
+  const [ssrError, setSsrError] = useState(false);
   const [alert, setAlert] = useState<AlertList>(null);
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
 
+  const fetcher = (url: string) => fetch(url).then((res) => res.json())
+  const { data, error } = useSWR('/api/hello', fetcher)
+  console.log(data, error);
+
   useEffect(() => {
-    if (error) {
+    if (ssrError) {
       setAlert({
         variant: "error",
         title: "Error while loading channels",
         text: "Let me know so I can fix the problem.",
       });
     }
-  }, [error]);
+  }, [ssrError]);
 
   useEffect(() => {
     if (props.response !== null) {
       setItems(props.response);
     } else {
-      setError(true);
+      setSsrError(true);
     }
   }, [props]);
 
@@ -44,6 +49,11 @@ export default function Home({ ...props }) {
     },
     [items],
   );
+
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("submit");
+  };
 
   if (loading) {
     return <Loading />;
@@ -60,7 +70,10 @@ export default function Home({ ...props }) {
         {alert && (
           <Alert type={alert.variant} text={alert.text} title={alert.title} />
         )}
-        <section className="flex flex-col w-full sm:w-[60%] sm:mx-auto my-6 sm:my-8 space-y-4">
+        <form
+          className="flex flex-col w-full sm:w-[60%] sm:mx-auto my-6 sm:my-8 space-y-8"
+          onSubmit={(event) => handleFormSubmit(event)}
+        >
           <div className="flex space-x-4">
             <DownshiftComponent
               className="w-full sm:w-[70%] relative flex items-center space-x-4"
@@ -74,10 +87,37 @@ export default function Home({ ...props }) {
                 duration-300 mt-auto mb-2`,
               )}
             >
-              <span className="sr-only">Channel not found in the database</span>
+              <span className="sr-only">
+                Channel not found in the database.
+              </span>
             </ExclamationCircleIcon>
           </div>
-        </section>
+          <div className="w-full sm:w-[70%]">
+            <label
+              htmlFor="userSelect"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-100 uppercase"
+            >
+              Choose a user:
+            </label>
+            <input
+              id="userSelect"
+              placeholder="trefis"
+              className="bg-white w-full dark:bg-[#333333] border border-gray-300 rounded-md mt-1
+              shadow-sm pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-1 dark:placeholder-gray-300
+            focus:ring-primary focus:border-primary sm:text-sm transition duration-200 dark:border-gray-500"
+            />
+          </div>
+          <div className="w-full sm:w-[70%] flex">
+            <button
+              className="w-full md:w-max ml-auto flex items-center justify-center px-5 py-3 border border-transparent 
+              text-base font-medium rounded-md text-white bg-primary hover:bg-purple-500 
+              focus:outline-primary duration-200 transition uppercase focus:outline-offset-2"
+              type="submit"
+            >
+              Load logs
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -94,7 +134,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     .then((response) => {
       const channelIDs = [];
       response.map((item: ChannelsResponse) => channelIDs.push(item.Name));
-      return { props: { response: channelIDs } };
+      return { props: { response: channelIDs, data: response } };
     })
     .catch((e) => {
       return {
