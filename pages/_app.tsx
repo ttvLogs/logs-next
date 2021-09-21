@@ -1,8 +1,8 @@
 import "../styles/globals.css";
 import Router from "next/router";
 import { Fragment, useState, useEffect } from "react";
+import { Loading } from "../components/";
 import { ThemeProvider } from "next-themes";
-import Loading from "../components/Loading";
 
 function MyApp({ Component, pageProps }: Props) {
   const getLayout = Component.getLayout ?? ((page) => page);

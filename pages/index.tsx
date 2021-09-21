@@ -1,8 +1,9 @@
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-import { useCallback, useMemo, useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import prisma from "../prisma/prisma";
 import { classNames } from "../utils";
+import { Loading, Alert } from "../components";
 import type { ReactElement } from "react";
 import MainLayout from "../layouts/Layout";
 import DownshiftComponent from "../components/Downshift";
@@ -11,26 +12,42 @@ import { ExclamationCircleIcon } from "@heroicons/react/outline";
 export default function Home({ ...props }) {
   const [channelWarning, setChannelWarning] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [error, setError] = useState(false);
+  const [alert, setAlert] = useState<AlertList>(null);
+  const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if (props.response !== null) {
-      props.response.map((item: ChannelsResponse) => {
-        if (!items.includes(item.ChannelID)) {
-          setItems((items) => [...items, item.ChannelID]);
-        }
+    if (error) {
+      setAlert({
+        variant: "error",
+        title: "Error while loading channels",
+        text: "Let me know so I can fix the problem.",
       });
     }
-  }, [props.response, items]);
+  }, [error]);
+
+  useEffect(() => {
+    if (props.response !== null) {
+      setItems(props.response);
+    } else {
+      setError(true);
+    }
+  }, [props]);
 
   const handleSelectedItemChange = useCallback(
     (selectedItem) => {
       setSelectedItem(selectedItem);
-      if (!items.includes(selectedItem)) setChannelWarning(true);
+      if (!items.includes(selectedItem) && selectedItem !== "")
+        setChannelWarning(true);
       else setChannelWarning(false);
     },
     [items],
   );
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -40,6 +57,9 @@ export default function Home({ ...props }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col mx-4">
+        {alert && (
+          <Alert type={alert.variant} text={alert.text} title={alert.title} />
+        )}
         <section className="flex flex-col w-full sm:w-[60%] sm:mx-auto my-6 sm:my-8 space-y-4">
           <div className="flex space-x-4">
             <DownshiftComponent
@@ -69,12 +89,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return await prisma.channels
     .findMany({
       where: { Availiable: 1 },
-      select: { ChannelID: true },
+      select: { Name: true },
     })
     .then((response) => {
-      return { props: { response: response } };
+      const channelIDs = [];
+      response.map((item: ChannelsResponse) => channelIDs.push(item.Name));
+      return { props: { response: channelIDs } };
     })
-    .catch(() => {
-      return { props: { response: null } };
+    .catch((e) => {
+      return {
+        props: { response: null, value: { type: "error", message: e.message } },
+      };
     });
 };
