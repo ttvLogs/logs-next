@@ -2,12 +2,18 @@ const colors = require("tailwindcss/colors");
 
 module.exports = {
   mode: "jit",
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
     extend: {
       outline: {
         primary: `2px dashed ${colors.purple[500]}`,
+      },
+      outlineOffset: {
+        0: "0",
+        1: "1px",
+        2: "2px",
+        4: "4px",
       },
       colors: {
         darkGrey: "var(--color-dark-light)",
@@ -22,5 +28,9 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [require("@tailwindcss/forms"), require("tailwind-scrollbar")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("tailwind-scrollbar"),
+    require("tailwindcss-enhanced-outlines-plugin"),
+  ],
 };
