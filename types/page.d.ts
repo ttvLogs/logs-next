@@ -10,16 +10,16 @@ declare global {
     }
   }
 
-  export type Page<P = {}> = NextPage<P> & {
+  type Page<P = {}> = NextPage<P> & {
     getLayout?: (page: ReactElement) => ReactNode;
     layout?: ComponentType;
   };
 
-  export type ChannelsResponse = {
-    ChannelID: string;
+  type ChannelsResponse = {
+    Name: string;
   };
 
-  export type Props = AppProps & {
+  type Props = AppProps & {
     Component: Page;
   };
 }
