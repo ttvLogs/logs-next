@@ -22,4 +22,10 @@ declare global {
   type Props = AppProps & {
     Component: Page;
   };
+
+  type AlertList = {
+    title: string;
+    text?: string;
+    variant: "ok" | "error" | "warning";
+  } | null;
 }
