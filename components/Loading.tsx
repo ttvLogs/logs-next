@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { classNames } from "../utils";
 import { Transition } from "@headlessui/react";
 import ppHopper from "../assets/images/ppHopper.gif";
 
-export default function Loading() {
+export function Loading() {
   return (
     // global region
     <div
