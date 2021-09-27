@@ -7,12 +7,6 @@ import {
   ExclamationCircleIcon,
 } from "@heroicons/react/outline";
 
-type AlertProps = {
-  type?: "ok" | "error" | "warning";
-  title: string;
-  text?: string;
-};
-
 export const Alert: FC<AlertProps> = ({ type = "ok", title, text }) => {
   const [show, setShow] = useState(true);
   useEffect(() => {
