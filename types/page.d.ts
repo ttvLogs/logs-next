@@ -28,4 +28,15 @@ declare global {
     text?: string;
     variant: "ok" | "error" | "warning";
   } | null;
+
+  type AlertProps = {
+    title: string;
+    text?: string;
+    type: "ok" | "error" | "warning";
+  };
+
+  type ContentProps = {
+    channel: string;
+    user: name;
+  };
 }
