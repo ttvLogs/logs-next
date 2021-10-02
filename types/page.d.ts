@@ -39,4 +39,17 @@ declare global {
     channel: string;
     user: name;
   };
+
+  type emote = {
+    id: string;
+    startIndex: number;
+    endIndex: number;
+    code: string;
+  };
+
+  type logsResponse = {
+    type: "ok" | "error";
+    sender: string;
+    data: any;
+  };
 }
