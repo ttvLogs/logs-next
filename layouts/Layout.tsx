@@ -6,7 +6,7 @@ type defProps = { children: ReactNode };
 export default function Layout({ children }: defProps) {
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <Navigation />
       </header>
       <main>
