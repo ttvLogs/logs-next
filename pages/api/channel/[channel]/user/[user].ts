@@ -1,69 +1,41 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { ttvUser_116738112 } from ".prisma/client";
 import prisma from "../../../../../prisma/prisma";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>,
 ) {
-  let userId: string;
-  let channelId: string;
+  const table = "ttvLogs.ttvUser_" + req.query.user;
 
-  await axios({
-    method: "get",
-    url: `https://api.twitch.tv/helix/users?login=${req.query.channel}`,
-    responseType: "json",
-    headers: {
-      "Client-Id": process.env.CLIENTID,
-      Authorization: process.env.BEARER,
-    },
-  })
-    .then(({ data }) => {
-      if (data.data[0].id === undefined) {
-        res.status(204).json({
-          status: "ok",
-          reason: "Channel ID is not found (undefined)",
-        });
-      } else {
-        channelId = data.data[0].id;
-      }
-    })
-    .catch(() => {
-      res.status(404).json({
-        status: "error",
-        reason: "Error while loading channel data from twitch API",
+  await prisma
+    .$queryRawUnsafe<ttvUser_116738112[]>(
+      `SELECT Name, Message, Emotes, Color, Badges, Timestamp FROM ${table} WHERE SenderID = ${req.query.channel}`,
+    )
+    .then((response) => {
+      const parsed = response.map((item: ttvUser_116738112) => {
+        if (item.Emotes !== null) {
+          const emotesArray: emote[] = JSON.parse(item.Emotes);
+          emotesArray.forEach((emote: emote) => {
+            item.Message = item.Message.replaceAll(
+              emote.code,
+              `<img src="https://static-cdn.jtvnw.net/emoticons/v2/${emote.id}/default/dark/1.0" alt="${emote.code}" className="w-6 h-6"/> `,
+            );
+          });
+        }
+        return {
+          name: item.Name,
+          color: item.Color,
+          message: item.Message,
+          timestamp: item.Timestamp,
+          badges: item.Badges === null ? "" : JSON.parse(item.Badges),
+        };
       });
-    });
-
-  await axios({
-    method: "get",
-    url: `https://api.twitch.tv/helix/users?login=${req.query.user}`,
-    responseType: "json",
-    headers: {
-      "Client-Id": process.env.CLIENTID,
-      Authorization: process.env.BEARER,
-    },
-  })
-    .then(({ data }) => {
-      if (data.data[0].id === undefined) {
-        res.status(204).json({
-          status: "ok",
-          reason: "User ID is not found (undefined)",
-        });
-      } else {
-        userId = data.data[0].id;
-      }
+      res.status(200).json({ type: "ok", sender: "api", data: parsed });
     })
-    .catch(() => {
-      res.status(404).json({
-        status: "error",
-        reason: "Error while loading user data from twitch API",
-      });
+    .catch((error) => {
+      console.log(error);
+      res.status(404).json({ type: "error", sender: "prisma", info: error });
     });
-
-  // request example with prisma
-  await prisma.channels.findMany().then((response) => {
-    res.status(200).json({ data: `${req.query.channel} ${req.query.user}` });
-  });
 }
