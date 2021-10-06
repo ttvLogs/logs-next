@@ -52,4 +52,13 @@ declare global {
     sender: string;
     data: any;
   };
+
+  type log = {
+    name: string;
+    color: string;
+    message: string;
+    timestamp: Date;
+    badges: JSON | null;
+    deleted: boolean;
+  };
 }
