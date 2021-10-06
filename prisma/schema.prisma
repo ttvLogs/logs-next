@@ -16,6 +16,7 @@ model ttvUser_172197890 {
   Color     String?   @db.VarChar(7)
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
+  isDeleted Int       @default(0) @db.TinyInt
 }
 
 model Channels {
@@ -34,6 +35,7 @@ model ttvUser_116738112 {
   Color     String?   @db.VarChar(7)
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
+  isDeleted Int       @default(0) @db.TinyInt
 }
 
 model ttvUser_12943173 {
@@ -45,6 +47,7 @@ model ttvUser_12943173 {
   Color     String?   @db.VarChar(7)
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
+  isDeleted Int       @default(0) @db.TinyInt
 }
 
 model ttvUser_62300805 {
@@ -56,6 +59,7 @@ model ttvUser_62300805 {
   Color     String?   @db.VarChar(7)
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
+  isDeleted Int       @default(0) @db.TinyInt
 }
 
 model ttvUser_72256775 {
@@ -67,6 +71,7 @@ model ttvUser_72256775 {
   Color     String?   @db.VarChar(7)
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
+  isDeleted Int       @default(0) @db.TinyInt
 }
 
 model ttvUser_95304188 {
@@ -78,4 +83,17 @@ model ttvUser_95304188 {
   Color     String?   @db.VarChar(7)
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
+  isDeleted Int       @default(0) @db.TinyInt
+}
+
+model ttvUser_31400525 {
+  ID        Int       @id @default(autoincrement())
+  SenderID  String?   @db.VarChar(10)
+  Name      String    @default("No name provided") @db.VarChar(30)
+  Message   String?   @db.Text
+  Emotes    String?   @db.Text
+  Color     String?   @db.VarChar(7)
+  Badges    String?   @db.Text
+  Timestamp DateTime? @default(now()) @db.Timestamp(0)
+  isDeleted Int       @default(0) @db.TinyInt
 }
