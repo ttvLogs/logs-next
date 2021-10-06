@@ -215,6 +215,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     .findMany({
       where: { Availiable: 1 },
       select: { Name: true },
+      orderBy: { Name: "asc" },
     })
     .then((response) => {
       const channelIDs = [];
