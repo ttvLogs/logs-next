@@ -116,7 +116,7 @@ const DownshiftComponent: FC<{
               isOpen
                 ? `absolute z-10 w-full mt-1 bg-white shadow-lg
             max-h-56 rounded-md text-base ring-1 ring-black dark:ring-gray-100/10 ring-opacity-5 
-            overflow-auto focus:outline-none sm:text-sm dark:bg-darkGrey`
+            overflow-auto focus:outline-none sm:text-sm dark:bg-darkGrey scrollbar-thin scrollbar-track-transparent scrollbar-thumb-primaryLight scrollbar-thumb-rounded`
                 : "",
             )}
             {...getMenuProps({}, { suppressRefError: true })}
