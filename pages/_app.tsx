@@ -28,15 +28,13 @@ function MyApp({ Component, pageProps }: Props) {
 
   return (
     <>
-      {loading ? (
-        <ThemeProvider attribute="class" defaultTheme="system">
+      <ThemeProvider attribute="class" defaultTheme="system">
+        {loading ? (
           <Loading />
-        </ThemeProvider>
-      ) : (
-        <ThemeProvider attribute="class" defaultTheme="system">
+        ) : (
           <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
-        </ThemeProvider>
-      )}
+        )}
+      </ThemeProvider>
     </>
   );
 }
