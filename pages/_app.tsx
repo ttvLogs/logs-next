@@ -28,7 +28,10 @@ function MyApp({ Component, pageProps }: Props) {
 
   return (
     <>
-      <ThemeProvider attribute="class" defaultTheme="system">
+      <ThemeProvider
+        attribute="class"
+        themes={["dark", "light"]}
+      >
         {loading ? (
           <Loading />
         ) : (
