@@ -30,7 +30,8 @@ function MyApp({ Component, pageProps }: Props) {
     <>
       <ThemeProvider
         attribute="class"
-        themes={["dark", "light"]}
+        enableSystem
+        defaultTheme="system"
       >
         {loading ? (
           <Loading />
