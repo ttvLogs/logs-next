@@ -61,4 +61,42 @@ declare global {
     badges: JSON | null;
     deleted: boolean;
   };
+
+  type globalBTTVResponse = {
+    id: string;
+    code: string;
+    imageType: string;
+    userId: string;
+  }[];
+
+  type channelBTTVResponse = {
+    id: string;
+    bots: string[];
+    avatar: string;
+    channelEmotes: {
+      id: string;
+      code: string;
+      imageType: string;
+      userId: string;
+    }[];
+    sharedEmotes: {
+      id: string;
+      code: string;
+      imageType: string;
+      user: {
+        id: string;
+        name: string;
+        displayName: string;
+        providerId: string;
+      };
+    }[];
+  };
+
+  type channelFFZResponse = {
+    id: number;
+    user: { id: number; name: string; displayName: string };
+    code: string;
+    images: { "1x": string; "2x": string; "3x": string };
+    imageType: string;
+  }[];
 }
