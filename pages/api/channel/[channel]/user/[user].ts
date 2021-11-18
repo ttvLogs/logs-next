@@ -10,7 +10,7 @@ export default async function handler(
 ) {
   const table = "ttvLogs.ttvUser_" + req.query.user;
 
-  // fetching BTTV & FFZ APIs
+  // fetching BTTV & FFZ & 7TV APIs
   const globalBTTV: AxiosResponse<globalBTTVResponse> = await axios.get(
     "https://api.betterttv.net/3/cached/emotes/global",
   );
@@ -23,9 +23,13 @@ export default async function handler(
     `https://api.betterttv.net/3/cached/frankerfacez/users/twitch/${req.query.user}`,
   );
 
+  const channel7TV: AxiosResponse<channel7TVResponse> = await axios.get(
+    `https://api.7tv.app/v2/users/${req.query.user}/emotes`,
+  );
+
   await prisma
     .$queryRawUnsafe<ttvUser_116738112[]>(
-      `SELECT Name, Message, Emotes, Color, Badges, Timestamp, isDeleted FROM ${table} WHERE SenderID = ${req.query.channel} ORDER BY Timestamp DESC;`,
+      `SELECT ID, Name, Message, Emotes, Color, Badges, Timestamp, isDeleted FROM ${table} WHERE SenderID = ${req.query.channel} ORDER BY Timestamp DESC;`,
     )
     .then(async (response) => {
       const parsed = response.map((item: ttvUser_116738112) => {
@@ -40,7 +44,7 @@ export default async function handler(
           /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
         item.Message = item.Message.replace(
           urlRegex,
-          '<a href="$&" target="_blank" rel="noopener norefferer" className="mr-1">$&</a>',
+          '&nbsp;<a href="$&" target="_blank" rel="noopener norefferer" className="mr-1">$&</a>',
         );
 
         // replace channel & shared BTTV emotes
@@ -85,12 +89,23 @@ export default async function handler(
           channelFFZ.data.forEach((element) => {
             item.Message = item.Message.replaceAll(
               element.code,
-              `<img src='${element.images["1x"]}' alt='channel ffz emote' className='mx-1'/>`
-            )
+              `<img src='${element.images["1x"]}' alt='channel ffz emote' className='mx-1'/>`,
+            );
+          });
+        }
+
+        // replace channel 7TV emotes
+        if (channel7TV.data) {
+          channel7TV.data.forEach((element) => {
+            item.Message = item.Message.replaceAll(
+              element.name,
+              `<img src='${element.urls[0][1]}' alt='channel 7tv emote' className='mx-1' style={{height: "${element.height[0]}", width: "${element.width[0]}"}}/>`,
+            );
           });
         }
 
         return {
+          id: item.ID,
           name: item.Name,
           color: item.Color === null ? "white" : item.Color,
           message: item.Message,
