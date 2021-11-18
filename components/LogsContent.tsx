@@ -29,13 +29,13 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
         const date = new Date(item.timestamp);
         return (
           <p className="flex space-x-2 flex-shrink-0" key={index}>
-            <span className="flex-nowrap truncate flex-shrink-0 text-gray-600 dark:text-gray-400">
+            <span className="truncate flex-shrink-0 text-gray-600 dark:text-gray-400">
               {format(date, "yyyy-MM-dd, hh:mm:ss")}
             </span>
             <span className="font-medium flex" style={{ color: item.color }}>
               {item.name}:
             </span>
-            <span className={classNames(item.deleted ? "text-gray-500" : "", "flex")}>
+            <span className={classNames(item.deleted ? "text-gray-500" : "", "flex", "flex-wrap")}>
               {parse(item.message)}
             </span>
           </p>
