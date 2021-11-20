@@ -76,17 +76,6 @@ export const Alert: FC<AlertProps> = ({ type = "ok", title, text }) => {
                       )}
                     </p>
                   </div>
-                  <div className="ml-4 flex-shrink-0 flex">
-                    <button
-                      className="bg-transparent rounded-md inline-flex text-gray-400 dark:hover:text-gray-200 hover:text-gray-500 focus:outline-primary"
-                      onClick={() => {
-                        setShow(false);
-                      }}
-                    >
-                      <span className="sr-only">Close</span>
-                      <XIcon className="h-5 w-5" aria-hidden="true" />
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
