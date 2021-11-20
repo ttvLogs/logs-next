@@ -20,7 +20,7 @@ export function Navigation() {
   };
   return (
     <header className="sticky top-0 z-30 border-b dark:border-gray-500">
-      <Disclosure as="div" className="dark:bg-darkGrey bg-white shadow">
+      <Disclosure as="div" className="dark:bg-darkGrey bg-white shadow" id="navigation">
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 sticky top-0 pt-0.5">
@@ -66,7 +66,7 @@ export function Navigation() {
                         <span>Dashboard</span>
                       </button>
                     </Link>
-                    <Link href="/settings" passHref>
+                    {/* <Link href="/settings" passHref>
                       <button
                         className={classNames(
                           getPath("/settings")
@@ -78,7 +78,7 @@ export function Navigation() {
                         <CogIcon className="w-6 h-6 opacity-50 transform group-hover:rotate-180 transition duration-300" />
                         <span>Settings</span>
                       </button>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
                 <div className="items-center justify-center hidden sm:flex">
@@ -110,7 +110,7 @@ export function Navigation() {
                       <span>Dashboard</span>
                     </div>
                   </Link>
-                  <Link href="/settings" passHref>
+                  {/* <Link href="/settings" passHref>
                     <div
                       className={classNames(
                         getPath("/settings")
@@ -122,7 +122,7 @@ export function Navigation() {
                       <CogIcon className="w-6 h-6 opacity-50" />
                       <span>Settings</span>
                     </div>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </Disclosure.Panel>
