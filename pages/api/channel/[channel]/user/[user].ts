@@ -29,7 +29,9 @@ export default async function handler(
 
   await prisma
     .$queryRawUnsafe<ttvUser_116738112[]>(
-      `SELECT ID, Name, Message, Emotes, Color, Badges, Timestamp, isDeleted FROM ${table} WHERE SenderID = ${req.query.channel} ORDER BY Timestamp DESC;`,
+      `SELECT ID, Name, Message, Emotes, Color, Badges, Timestamp, isDeleted FROM ${table} WHERE SenderID = ${
+        req.query.channel
+      } AND ${req.query.next ? `ID < ${req.query.next}` : "ID > 0"} ORDER BY Timestamp DESC LIMIT 50;`,
     )
     .then(async (response) => {
       const parsed = response.map((item: ttvUser_116738112) => {
@@ -99,7 +101,7 @@ export default async function handler(
           channel7TV.data.forEach((element) => {
             item.Message = item.Message.replaceAll(
               element.name,
-              `<img src='${element.urls[0][1]}' alt='channel 7tv emote' className='mx-1' style={{height: "${element.height[0]}", width: "${element.width[0]}"}}/>`,
+              `<img src='${element.urls[0][1]}' alt='channel 7tv emote' className='mx-1'/>`,
             );
           });
         }
@@ -114,7 +116,15 @@ export default async function handler(
           deleted: item.isDeleted === 0 ? false : true,
         };
       });
-      res.status(200).json({ type: "ok", sender: "api", data: parsed });
+
+      res.status(200).json({
+        type: "ok",
+        sender: "api",
+        data: parsed,
+        next: `/api/channel/${req.query.user}/user/${req.query.channel}?next=${
+          parsed[parsed.length - 1]?.id || 0
+        }`,
+      });
     })
     .catch((error) => {
       console.log(error);
