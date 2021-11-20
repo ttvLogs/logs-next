@@ -6,6 +6,7 @@ import { Alert } from "../components";
 import { Loading } from "../components";
 import axios, { AxiosResponse } from "axios";
 import { LoadingSpin } from "../assets/icons";
+import { animateScroll as scroll } from "react-scroll";
 
 export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
   const [data, setData] = useState<log[]>();
@@ -73,7 +74,7 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
     <>
       {data && data.length > 0 ? (
         <div>
-          <section className="bg-gray-50 dark:bg-darkGrey rounded-lg h-full border dark:border-gray-500 mb-6 flex flex-col space-y-2 px-4 py-2">
+          <section className="bg-gray-50 dark:bg-darkGrey rounded-lg h-full border dark:border-gray-500 mb-6 flex flex-col space-y-2 px-4 py-2 text-sm md:text-base">
             {data.map((item: log, index: number) => {
               const date = new Date(item.timestamp);
               return (
@@ -101,12 +102,13 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
             })}
           </section>
           {next && (
-            <div className="w-full flex mb-6">
+            <div className="flex flex-col w-full md:flex-row mb-6 space-y-6 md:space-y-0 md:space-x-6">
               <button
                 className="w-full bg-gray-50 dark:bg-darkGrey rounded-lg border 
               dark:border-gray-500 px-5 py-2 uppercase font-medium disabled:opacity-50
               focus:outline-primary duration-200 transition focus:outline-offset-2
               hover:opacity-80 flex items-center justify-center"
+                type="button"
                 disabled={loadMore}
                 onClick={(event) => onLoadMoreClick(event)}
               >
@@ -114,6 +116,16 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
                   <LoadingSpin className="w-5 h-5 animate-spin mr-2" />
                 )}
                 <span>Load more</span>
+              </button>
+              <button
+                className="w-full bg-gray-50 dark:bg-darkGrey rounded-lg border 
+              dark:border-gray-500 px-5 py-2 uppercase font-medium disabled:opacity-50
+              focus:outline-primary duration-200 transition focus:outline-offset-2
+              hover:opacity-80 flex items-center justify-center"
+                type="button"
+                onClick={() => scroll.scrollToTop()}
+              >
+                <span>To the top</span>
               </button>
             </div>
           )}
