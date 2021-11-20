@@ -121,7 +121,7 @@ export default async function handler(
         type: "ok",
         sender: "api",
         data: parsed,
-        next: `/api/channel/${req.query.user}/user/${req.query.channel}?next=${
+        next: `/api/channel/${req.query.channel}/user/${req.query.user}?next=${
           parsed[parsed.length - 1]?.id || 0
         }`,
       });
