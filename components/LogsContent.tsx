@@ -41,12 +41,17 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
     await axios
       .get(next)
       .then((response: AxiosResponse<logsResponse>) => {
-        setLoadMore(false);
-        setNext(response.data?.next);
-        setData((data) => [...data, ...response.data.data]);
+        if (response.data.type == "ok") {
+          setLoadMore(false);
+          setNext(response.data?.next);
+          setData((data) => [...data, ...response.data.data]);
+        } else {
+          setError(true);
+        }
       })
       .catch(() => {
         setLoadMore(false);
+        setError(true);
       });
   };
 
@@ -86,7 +91,7 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
                     className={classNames(
                       item.deleted ? "text-gray-500" : "",
                       "flex",
-                      "flex-wrap",
+                      "flex-wrap break-all",
                     )}
                   >
                     {parse(item.message)}

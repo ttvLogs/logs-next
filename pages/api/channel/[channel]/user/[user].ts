@@ -31,7 +31,7 @@ export default async function handler(
     .$queryRawUnsafe<ttvUser_116738112[]>(
       `SELECT ID, Name, Message, Emotes, Color, Badges, Timestamp, isDeleted FROM ${table} WHERE SenderID = ${
         req.query.channel
-      } AND ${req.query.next ? `ID < ${req.query.next}` : "ID > 0"} ORDER BY Timestamp DESC LIMIT 50;`,
+      } AND ${req.query.next ? `ID < ${req.query.next}` : "ID > 0"} ORDER BY Timestamp DESC LIMIT 250;`,
     )
     .then(async (response) => {
       const parsed = response.map((item: ttvUser_116738112) => {
@@ -46,7 +46,7 @@ export default async function handler(
           /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
         item.Message = item.Message.replace(
           urlRegex,
-          '&nbsp;<a href="$&" target="_blank" rel="noopener norefferer" className="mr-1">$&</a>',
+          '<a href="$&" target="_blank" rel="noopener norefferer" className="mr-1">&nbsp;$&</a>',
         );
 
         // replace channel & shared BTTV emotes
