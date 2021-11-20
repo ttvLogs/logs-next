@@ -50,7 +50,8 @@ declare global {
   type logsResponse = {
     type: "ok" | "error";
     sender: string;
-    data: any;
+    data: log[];
+    next?: string;
   };
 
   type log = {
