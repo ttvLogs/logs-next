@@ -133,26 +133,27 @@ export default function Home({ ...props }) {
           <Alert type={alert.variant} text={alert.text} title={alert.title} />
         )}
         <div className="flex flex-col w-full sm:w-[60%] sm:mx-auto my-6 sm:my-8 space-y-8">
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 relative">
             <DownshiftComponent
-              className="w-full sm:w-[70%] relative flex items-center space-x-4"
+              className="w-full relative flex items-center space-x-4"
               items={items}
               handleSelectedItemChange={handleSelectedItemChange}
             />
-            <ExclamationCircleIcon
-              className={classNames(
-                channelWarning ? "opacity-100" : "opacity-0",
-                `w-6 h-6 text-red-500 transform transition 
-                duration-300 mt-auto mb-2`,
-              )}
-            >
-              <span className="sr-only">
-                Channel not found in the database.
-              </span>
-            </ExclamationCircleIcon>
+            <div className="absolute bottom-1.5 right-0 pr-3 flex items-center pointer-events-none">
+              <ExclamationCircleIcon
+                className={classNames(
+                  channelWarning ? "opacity-100" : "opacity-0",
+                  `w-6 h-6 text-red-500 transform transition duration-300`,
+                )}
+              >
+                <span className="sr-only">
+                  Channel not found in the database.
+                </span>
+              </ExclamationCircleIcon>
+            </div>
           </div>
           <div className="w-full flex space-x-4">
-            <div className="w-full sm:w-[70%]">
+            <div className="w-full relative">
               <label
                 htmlFor="userSelect"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-100 uppercase"
@@ -170,23 +171,24 @@ export default function Home({ ...props }) {
               shadow-sm pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-1 dark:placeholder-gray-300
             focus:ring-primary focus:border-primary sm:text-sm transition duration-200 dark:border-gray-500"
               />
+              <div className="absolute bottom-1.5 right-0 pr-3 flex items-center pointer-events-none">
+                <ExclamationCircleIcon
+                  className={classNames(
+                    nameWarning ? "opacity-100" : "opacity-0",
+                    `w-6 h-6 text-red-500 transform transition duration-300`,
+                  )}
+                >
+                  <span className="sr-only">
+                    Channel not found in the database.
+                  </span>
+                </ExclamationCircleIcon>
+              </div>
             </div>
-            <ExclamationCircleIcon
-              className={classNames(
-                nameWarning ? "opacity-100" : "opacity-0",
-                `w-6 h-6 text-red-500 transform transition 
-                duration-300 mt-auto mb-2`,
-              )}
-            >
-              <span className="sr-only">
-                Channel not found in the database.
-              </span>
-            </ExclamationCircleIcon>
           </div>
-          <div className="w-full sm:w-[70%] flex">
+          <div className="w-full flex">
             <button
               className="w-full md:w-max ml-auto flex items-center justify-center px-5 py-2 border border-transparent 
-              text-base font-medium rounded-md text-white bg-primary hover:bg-purple-500 disabled:cursor-wait
+              text-base font-medium rounded-md text-white bg-primary hover:bg-violet-500 disabled:cursor-wait
               focus:outline-primary duration-200 transition uppercase focus:outline-offset-2 disabled:opacity-50"
               disabled={axiosLoading}
               type="submit"

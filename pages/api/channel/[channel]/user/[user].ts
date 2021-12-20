@@ -49,6 +49,16 @@ export default async function handler(
           '<a href="$&" target="_blank" rel="noopener norefferer" className="mr-1">&nbsp;$&</a>',
         );
 
+        // replace channel 7TV emotes
+        if (channel7TV.data) {
+          channel7TV.data.forEach((element) => {
+            item.Message = item.Message.replaceAll(
+              element.name,
+              `<img src='${element.urls[0][1]}' alt='channel seventv emote' className='mx-1'/>`,
+            );
+          });
+        }
+
         // replace channel & shared BTTV emotes
         if (channelBTTV.data.channelEmotes) {
           channelBTTV.data.channelEmotes.forEach((element) => {
@@ -81,7 +91,7 @@ export default async function handler(
           globalBTTV.data.forEach((element) => {
             item.Message = item.Message.replaceAll(
               element.code,
-              `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='global bttv emote' className='mx-1'/>`,
+              `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='global betterttv emote' className='mx-1'/>`,
             );
           });
         }
@@ -91,17 +101,7 @@ export default async function handler(
           channelFFZ.data.forEach((element) => {
             item.Message = item.Message.replaceAll(
               element.code,
-              `<img src='${element.images["1x"]}' alt='channel ffz emote' className='mx-1'/>`,
-            );
-          });
-        }
-
-        // replace channel 7TV emotes
-        if (channel7TV.data) {
-          channel7TV.data.forEach((element) => {
-            item.Message = item.Message.replaceAll(
-              element.name,
-              `<img src='${element.urls[0][1]}' alt='channel 7tv emote' className='mx-1'/>`,
+              `<img src='${element.images["1x"]}' alt='channel frankerfacez emote' className='mx-1'/>`,
             );
           });
         }
