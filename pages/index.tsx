@@ -254,7 +254,7 @@ export default function Home({ ...props }) {
                     can contact me by the links above
                   </li>
                   <li>
-                    You can also always improve this application and create a{" "}
+                    You can also always improve this application by creating a{" "}
                     <a
                       href={"https://github.com/ttvLogs/logs-next/pulls"}
                       target={"_blank"}
