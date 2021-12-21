@@ -28,7 +28,7 @@ export function ThemeSwitcher() {
       onChange={handleChange}
       className={classNames(
         "bg-gray-200",
-        "relative inline-flex focus:outline-primary flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer hover:bg-gray-300 transition duration-200",
+        "relative inline-flex focus:outline-dashed focus:outline-offset-2 focus:outline-2 focus:outline-primary flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer hover:bg-gray-300 transition duration-200",
       )}
     >
       <span className="sr-only">Theme switcher</span>

@@ -11,6 +11,7 @@ import { LoadingSpin } from "../assets/icons";
 import DownshiftComponent from "../components/Downshift";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
 import LogsContent from "../components/LogsContent";
+import Link from "next/link";
 
 export default function Home({ ...props }) {
   const [channelWarning, setChannelWarning] = useState(false);
@@ -188,8 +189,9 @@ export default function Home({ ...props }) {
           <div className="w-full flex">
             <button
               className="w-full md:w-max ml-auto flex items-center justify-center px-5 py-2 border border-transparent 
-              text-base font-medium rounded-md text-white bg-primary hover:bg-violet-500 disabled:cursor-wait
-              focus:outline-primary duration-200 transition uppercase focus:outline-offset-2 disabled:opacity-50"
+              text-base font-medium rounded-md text-white bg-primary hover:bg-violet-600 disabled:cursor-wait
+              focus:outline-dashed focus:outline-primary duration-200 transition uppercase 
+              focus:outline-offset-2 disabled:opacity-50 focus:outline-2"
               disabled={axiosLoading}
               type="submit"
             >
@@ -201,8 +203,54 @@ export default function Home({ ...props }) {
           </div>
         </div>
         <div className="mx-auto w-full sm:w-[80%]">
-          {content && (
+          {content ? (
             <LogsContent channel={content.channel} user={content.user} />
+          ) : (
+            <section className="bg-gray-50 dark:bg-darkGrey rounded-lg h-full border dark:border-gray-500 mb-6 flex flex-col space-y-2 p-4">
+              <div className="my-auto text-center">
+                <p className="mx-auto text-lg">
+                  Hello, this is the supa first &Beta;eta version of{" "}
+                  <span className="font-medium text-primary">ttvLogs</span>
+                </p>
+                <p className="mt-4">
+                  The application in not so well tested at the moment so you may
+                  encounter some bugs
+                </p>
+                <ul>
+                  <li>
+                    - If you found any bugs, problems or errors please create a{" "}
+                    <a
+                      href={"https://github.com/ttvLogs/logs-next"}
+                      target={"_blank"}
+                      rel="noopener noreferrer"
+                      className="text-primaryLight hover:text-primary hover:underline"
+                    >
+                      Github Issue
+                    </a>{" "}
+                    or just contact me at{" "}
+                    <a
+                      href={"https://t.me/trefis"}
+                      target={"_blank"}
+                      rel="noopener noreferrer"
+                      className="text-primaryLight hover:text-primary hover:underline"
+                    >
+                      telegram
+                    </a>{" "}
+                    or{" "}
+                    <a
+                      href={"https://twitch.tv/trefis"}
+                      target={"_blank"}
+                      rel="noopener noreferrer"
+                      className="text-primaryLight hover:text-primary hover:underline"
+                    >
+                      twitch
+                    </a>{" "}
+                    pm/offline chat and I&apos;ll take a look at your problem ASAP
+                  </li>
+                  <li>- If you want to be added to the list of channels for log you can contact me by the links above</li>
+                </ul>
+              </div>
+            </section>
           )}
         </div>
       </form>

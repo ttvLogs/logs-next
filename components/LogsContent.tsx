@@ -79,8 +79,13 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
               const date = new Date(item.timestamp);
               return (
                 <p className="flex space-x-2 flex-shrink-0" key={index}>
-                  <span className="truncate flex-shrink-0 text-gray-600 dark:text-gray-400">
-                    {format(date, "yyyy-MM-dd, hh:mm:ss")}
+                  <span className="truncate flex-shrink-0 text-gray-600 dark:text-gray-400 ">
+                    <span className="hidden sm:block">
+                      {format(date, "dd-MM-yy, hh:mm:ss")}
+                    </span>
+                    <span className="block sm:hidden">
+                      {format(date, "dd-MM, hh:mm")}
+                    </span>
                   </span>
                   <span
                     className="font-medium flex"
@@ -106,7 +111,7 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
               <button
                 className="w-full bg-gray-50 dark:bg-darkGrey rounded-lg border 
               dark:border-gray-500 px-5 py-2 uppercase font-medium disabled:opacity-50
-              focus:outline-primary duration-200 transition focus:outline-offset-2
+              focus:outline-dashed focus:outline-2 focus:outline-primary duration-200 transition focus:outline-offset-2
               hover:opacity-80 flex items-center justify-center"
                 type="button"
                 disabled={loadMore}
@@ -120,7 +125,7 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
               <button
                 className="w-full bg-gray-50 dark:bg-darkGrey rounded-lg border 
               dark:border-gray-500 px-5 py-2 uppercase font-medium disabled:opacity-50
-              focus:outline-primary duration-200 transition focus:outline-offset-2
+              focus:outline-dashed focus:outline-2 focus:outline-primary duration-200 transition focus:outline-offset-2
               hover:opacity-80 flex items-center justify-center"
                 type="button"
                 onClick={() => scroll.scrollToTop()}

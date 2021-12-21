@@ -5,9 +5,6 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
-      outline: {
-        primary: `2px dashed ${colors.violet[500]}`,
-      },
       outlineOffset: {
         0: "0",
         1: "1px",

@@ -56,7 +56,7 @@ export function SlideOver ({ children }: defProps) {
                       <div className="ml-3 h-7 flex items-center">
                         <button
                           className="rounded-md text-gray-400 dark:text-gray-200 dark:hover:text-gray-400
-                           hover:text-gray-500 focus:outline-primary transition duration-200"
+                           hover:text-gray-500 focus:outline-dashed focus:outline-2 focus:outline-primary transition duration-200"
                           onClick={() => setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>
