@@ -81,10 +81,10 @@ export const LogsContent: FC<ContentProps> = ({ channel, user }) => {
                 <p className="flex space-x-2 flex-shrink-0" key={index}>
                   <span className="truncate flex-shrink-0 text-gray-600 dark:text-gray-400 ">
                     <span className="hidden sm:block">
-                      {format(date, "dd-MM-yy, hh:mm:ss")}
+                      {format(date, "dd/MM/yy, hh:mm:ss")}
                     </span>
                     <span className="block sm:hidden">
-                      {format(date, "dd-MM, hh:mm")}
+                      {format(date, "dd/MM, hh:mm")}
                     </span>
                   </span>
                   <span

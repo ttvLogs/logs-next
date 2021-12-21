@@ -11,7 +11,8 @@ import { LoadingSpin } from "../assets/icons";
 import DownshiftComponent from "../components/Downshift";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
 import LogsContent from "../components/LogsContent";
-import Link from "next/link";
+import ppSnow from "../assets/images/ppSnow.gif";
+import Image from "next/image";
 
 export default function Home({ ...props }) {
   const [channelWarning, setChannelWarning] = useState(false);
@@ -207,20 +208,20 @@ export default function Home({ ...props }) {
             <LogsContent channel={content.channel} user={content.user} />
           ) : (
             <section className="bg-gray-50 dark:bg-darkGrey rounded-lg h-full border dark:border-gray-500 mb-6 flex flex-col space-y-2 p-4">
-              <div className="my-auto text-center">
-                <p className="mx-auto text-lg">
+              <div className="my-auto mx-auto text-center max-w-4xl">
+                <p className="text-lg">
                   Hello, this is the supa first &Beta;eta version of{" "}
                   <span className="font-medium text-primary">ttvLogs</span>
                 </p>
-                <p className="mt-4">
-                  The application in not so well tested at the moment so you may
+                <p className="mt-4 border-b pb-2 mb-2">
+                  The application is not so well tested at the moment so you may
                   encounter some bugs
                 </p>
-                <ul>
+                <ul className="text-left list-inside list-disc">
                   <li>
-                    - If you found any bugs, problems or errors please create a{" "}
+                    If you found any bugs, problems or errors please create a{" "}
                     <a
-                      href={"https://github.com/ttvLogs/logs-next"}
+                      href={"https://github.com/ttvLogs/logs-next/issues"}
                       target={"_blank"}
                       rel="noopener noreferrer"
                       className="text-primaryLight hover:text-primary hover:underline"
@@ -245,10 +246,40 @@ export default function Home({ ...props }) {
                     >
                       twitch
                     </a>{" "}
-                    pm/offline chat and I&apos;ll take a look at your problem ASAP
+                    pm/offline chat and I&apos;ll take a look at your problem
+                    ASAP
                   </li>
-                  <li>- If you want to be added to the list of channels for log you can contact me by the links above</li>
+                  <li>
+                    If you want to be added to the list of channels to log you
+                    can contact me by the links above
+                  </li>
+                  <li>
+                    You can also always improve this application and create a{" "}
+                    <a
+                      href={"https://github.com/ttvLogs/logs-next/pulls"}
+                      target={"_blank"}
+                      rel="noopener noreferrer"
+                      className="text-primaryLight hover:text-primary hover:underline"
+                    >
+                      Github Pull Request
+                    </a>
+                  </li>
+                  <li>
+                    And you can track the application&apos;s progress on the todo
+                    list in{" "}
+                    <a
+                      href={"https://github.com/ttvLogs/logs-next/projects/1"}
+                      target={"_blank"}
+                      rel="noopener noreferrer"
+                      className="text-primaryLight hover:text-primary hover:underline"
+                    >
+                      here
+                    </a>
+                  </li>
                 </ul>
+                <div className="mt-4">
+                  <Image src={ppSnow} alt="peepo snow" />
+                </div>
               </div>
             </section>
           )}

@@ -4,6 +4,8 @@ import { ttvUser_116738112 } from ".prisma/client";
 import prisma from "../../../../../prisma/prisma";
 import axios, { AxiosResponse } from "axios";
 
+export const ignoredWords = ["7tv", "betterttv", "emote", "app"];
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>,
@@ -31,7 +33,9 @@ export default async function handler(
     .$queryRawUnsafe<ttvUser_116738112[]>(
       `SELECT ID, Name, Message, Emotes, Color, Badges, Timestamp, isDeleted FROM ${table} WHERE SenderID = ${
         req.query.channel
-      } AND ${req.query.next ? `ID < ${req.query.next}` : "ID > 0"} ORDER BY Timestamp DESC LIMIT 250;`,
+      } AND ${
+        req.query.next ? `ID < ${req.query.next}` : "ID > 0"
+      } ORDER BY Timestamp DESC LIMIT 250;`,
     )
     .then(async (response) => {
       const parsed = response.map((item: ttvUser_116738112) => {
@@ -52,26 +56,35 @@ export default async function handler(
         // replace channel 7TV emotes
         if (channel7TV.data) {
           channel7TV.data.forEach((element) => {
-            item.Message = item.Message.replaceAll(
-              element.name,
-              `<img src='${element.urls[0][1]}' alt='channel seventv emote' className='mx-1'/>`,
-            );
+            if (!ignoredWords.includes(element.name)) {
+              const target = new RegExp("\\b" + element.name + "\\b", "gi");
+              item.Message = item.Message.replaceAll(
+                target,
+                `<img src='https://cdn.7tv.app/emote/${element.id}/1x' alt='channel seventv emote' className='mx-1'/>`,
+              );
+            }
           });
         }
 
         // replace channel & shared BTTV emotes
         if (channelBTTV.data.channelEmotes) {
           channelBTTV.data.channelEmotes.forEach((element) => {
-            item.Message = item.Message.replaceAll(
-              element.code,
-              `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='channel bttv emote' className='mx-1'/>`,
-            );
+            if (!ignoredWords.includes(element.code)) {
+              const target = new RegExp("\\b" + element.code + "\\b", "gi");
+              item.Message = item.Message.replaceAll(
+                target,
+                `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='channel bttv emote' className='mx-1'/>`,
+              );
+            }
           });
           channelBTTV.data?.sharedEmotes.forEach((element) => {
-            item.Message = item.Message.replaceAll(
-              element.code,
-              `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='channel bttv emote' className='mx-1'/>`,
-            );
+            if (!ignoredWords.includes(element.code)) {
+              const target = new RegExp("\\b" + element.code + "\\b", "gi");
+              item.Message = item.Message.replaceAll(
+                target,
+                `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='channel bttv emote' className='mx-1'/>`,
+              );
+            }
           });
         }
 
@@ -79,30 +92,39 @@ export default async function handler(
         if (item.Emotes !== null) {
           const emotesArray: emote[] = JSON.parse(item.Emotes);
           emotesArray.forEach((emote: emote) => {
-            item.Message = item.Message.replaceAll(
-              emote.code,
-              `<img src='https://static-cdn.jtvnw.net/emoticons/v2/${emote.id}/default/dark/1.0' alt='sub emote' className='mx-1'/>`,
-            );
+            if (!ignoredWords.includes(emote.code)) {
+              const target = new RegExp("\\b" + emote.code + "\\b", "gi");
+              item.Message = item.Message.replaceAll(
+                target,
+                `<img src='https://static-cdn.jtvnw.net/emoticons/v2/${emote.id}/default/dark/1.0' alt='sub emote' className='mx-1'/>`,
+              );
+            }
           });
         }
 
         // replace global BTTV emotes
         if (globalBTTV.data) {
           globalBTTV.data.forEach((element) => {
-            item.Message = item.Message.replaceAll(
-              element.code,
-              `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='global betterttv emote' className='mx-1'/>`,
-            );
+            if (!ignoredWords.includes(element.code)) {
+              const target = new RegExp("\\b" + element.code + "\\b", "gi");
+              item.Message = item.Message.replaceAll(
+                target,
+                `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='global betterttv emote' className='mx-1'/>`,
+              );
+            }
           });
         }
 
         // replace channel FFZ emotes
         if (channelFFZ.data) {
           channelFFZ.data.forEach((element) => {
-            item.Message = item.Message.replaceAll(
-              element.code,
-              `<img src='${element.images["1x"]}' alt='channel frankerfacez emote' className='mx-1'/>`,
-            );
+            if (!ignoredWords.includes(element.code)) {
+              const target = new RegExp("\\b" + element.code + "\\b", "gi");
+              item.Message = item.Message.replaceAll(
+                target,
+                `<img src='${element.images["1x"]}' alt='channel frankerfacez emote' className='mx-1'/>`,
+              );
+            }
           });
         }
 
