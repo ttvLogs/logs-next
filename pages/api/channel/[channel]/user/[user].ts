@@ -57,7 +57,13 @@ export default async function handler(
         if (channel7TV.data) {
           channel7TV.data.forEach((element) => {
             if (!ignoredWords.includes(element.name)) {
-              const target = new RegExp("\\b" + element.name + "\\b", "gi");
+              let target: string | RegExp = "";
+              try {
+                target = new RegExp("\\b" + element.name + "\\b", "gi");
+              } catch {
+                console.log(element.name);
+                target = element.name;
+              }
               item.Message = item.Message.replaceAll(
                 target,
                 `<img src='https://cdn.7tv.app/emote/${element.id}/1x' alt='channel seventv emote' className='mx-1'/>`,
@@ -70,7 +76,12 @@ export default async function handler(
         if (channelBTTV.data.channelEmotes) {
           channelBTTV.data.channelEmotes.forEach((element) => {
             if (!ignoredWords.includes(element.code)) {
-              const target = new RegExp("\\b" + element.code + "\\b", "gi");
+              let target: string | RegExp = "";
+              try {
+                target = new RegExp("\\b" + element.code + "\\b", "gi");
+              } catch {
+                target = element.code;
+              }
               item.Message = item.Message.replaceAll(
                 target,
                 `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='channel bttv emote' className='mx-1'/>`,
@@ -79,7 +90,12 @@ export default async function handler(
           });
           channelBTTV.data?.sharedEmotes.forEach((element) => {
             if (!ignoredWords.includes(element.code)) {
-              const target = new RegExp("\\b" + element.code + "\\b", "gi");
+              let target: string | RegExp = "";
+              try {
+                target = new RegExp("\\b" + element.code + "\\b", "gi");
+              } catch {
+                target = element.code;
+              }
               item.Message = item.Message.replaceAll(
                 target,
                 `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='channel bttv emote' className='mx-1'/>`,
@@ -93,11 +109,23 @@ export default async function handler(
           const emotesArray: emote[] = JSON.parse(item.Emotes);
           emotesArray.forEach((emote: emote) => {
             if (!ignoredWords.includes(emote.code)) {
-              const target = new RegExp("\\b" + emote.code + "\\b", "gi");
-              item.Message = item.Message.replaceAll(
-                target,
-                `<img src='https://static-cdn.jtvnw.net/emoticons/v2/${emote.id}/default/dark/1.0' alt='sub emote' className='mx-1'/>`,
-              );
+              let target: string | RegExp = "";
+              try {
+                target = new RegExp("\\b" + emote.code + "\\b", "gi");
+              } catch {
+                target = emote.code;
+              }
+              if (item.Message.includes("&lt;3")) {
+                item.Message = item.Message.replaceAll(
+                  "&lt;3",
+                  `<img src='https://static-cdn.jtvnw.net/emoticons/v2/${emote.id}/default/dark/1.0' alt='sub emote' className='mx-1' width='32'/>`,
+                );
+              } else {
+                item.Message = item.Message.replaceAll(
+                  target,
+                  `<img src='https://static-cdn.jtvnw.net/emoticons/v2/${emote.id}/default/dark/1.0' alt='sub emote' className='mx-1' width='32'/>`,
+                );
+              }
             }
           });
         }
@@ -106,9 +134,8 @@ export default async function handler(
         if (globalBTTV.data) {
           globalBTTV.data.forEach((element) => {
             if (!ignoredWords.includes(element.code)) {
-              const target = new RegExp("\\b" + element.code + "\\b", "gi");
               item.Message = item.Message.replaceAll(
-                target,
+                element.code,
                 `<img src='https://cdn.betterttv.net/emote/${element.id}/1x' alt='global betterttv emote' className='mx-1'/>`,
               );
             }
