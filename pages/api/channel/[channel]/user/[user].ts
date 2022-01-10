@@ -61,7 +61,6 @@ export default async function handler(
               try {
                 target = new RegExp("\\b" + element.name + "\\b", "gi");
               } catch {
-                console.log(element.name);
                 target = element.name;
               }
               item.Message = item.Message.replaceAll(
