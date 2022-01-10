@@ -250,7 +250,7 @@ export default function Home({ ...props }) {
                     ASAP
                   </li>
                   <li>
-                    If you want to be added to the list of channels to log you
+                    If you want to be added to the list of channels you
                     can contact me by the links above
                   </li>
                   <li>
