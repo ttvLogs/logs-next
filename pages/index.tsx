@@ -120,6 +120,8 @@ export default function Home({ ...props }) {
     }
   };
 
+  console.log(process.env.NEXT_PUBLIC_CLIENTID, process.env.NEXT_PUBLIC_BEARER)
+
   return (
     <div>
       <Head>
