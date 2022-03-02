@@ -17,6 +17,8 @@ model ttvUser_172197890 {
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
   isDeleted Int       @default(0) @db.TinyInt
+
+  @@index([SenderID], map: "SenderID")
 }
 
 model Channels {
@@ -36,18 +38,8 @@ model ttvUser_116738112 {
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
   isDeleted Int       @default(0) @db.TinyInt
-}
 
-model ttvUser_12943173 {
-  ID        Int       @id @default(autoincrement())
-  SenderID  String?   @db.VarChar(10)
-  Name      String    @default("No name provided") @db.VarChar(30)
-  Message   String?   @db.Text
-  Emotes    String?   @db.Text
-  Color     String?   @db.VarChar(7)
-  Badges    String?   @db.Text
-  Timestamp DateTime? @default(now()) @db.Timestamp(0)
-  isDeleted Int       @default(0) @db.TinyInt
+  @@index([SenderID], map: "SenderID")
 }
 
 model ttvUser_62300805 {
@@ -60,6 +52,8 @@ model ttvUser_62300805 {
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
   isDeleted Int       @default(0) @db.TinyInt
+
+  @@index([SenderID], map: "SenderID")
 }
 
 model ttvUser_72256775 {
@@ -72,6 +66,8 @@ model ttvUser_72256775 {
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
   isDeleted Int       @default(0) @db.TinyInt
+
+  @@index([SenderID], map: "SenderID")
 }
 
 model ttvUser_95304188 {
@@ -84,6 +80,8 @@ model ttvUser_95304188 {
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
   isDeleted Int       @default(0) @db.TinyInt
+
+  @@index([SenderID], map: "SenderID")
 }
 
 model ttvUser_31400525 {
@@ -96,4 +94,20 @@ model ttvUser_31400525 {
   Badges    String?   @db.Text
   Timestamp DateTime? @default(now()) @db.Timestamp(0)
   isDeleted Int       @default(0) @db.TinyInt
+
+  @@index([SenderID], map: "SenderID")
+}
+
+model ttvUser_11148817 {
+  ID        Int       @id @default(autoincrement())
+  SenderID  String?   @db.VarChar(10)
+  Name      String    @default("No name provided") @db.VarChar(30)
+  Message   String?   @db.Text
+  Emotes    String?   @db.Text
+  Color     String?   @db.VarChar(7)
+  Badges    String?   @db.Text
+  Timestamp DateTime? @default(now()) @db.Timestamp(0)
+  isDeleted Int       @default(0) @db.TinyInt
+
+  @@index([SenderID], map: "SenderID")
 }
